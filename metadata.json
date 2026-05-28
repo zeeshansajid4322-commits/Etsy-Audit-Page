@@ -1,0 +1,6 @@
+{
+  "name": "Etsy Shop Audit Waitlist",
+  "description": "A highly converting SaaS landing page for a free Etsy shop audit service.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
