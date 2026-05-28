@@ -49,25 +49,24 @@ export default function App() {
     setIsSubmitting(true);
     
     try {
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwQfzlUcfaE7Cy6bl-Tzvoge7gmZtFUUg0hFjEorQ95tFjjbbYnieN6uVUOBpbvL2mn/exec';
-      
-      const submitData = new FormData();
-      submitData.append('fullName', formData.fullName);
-      submitData.append('shopName', formData.shopName);
-      submitData.append('shopLink', formData.shopLink);
-      submitData.append('email', formData.email);
-      submitData.append('whatsapp', formData.whatsapp);
-      submitData.append('shopAge', formData.shopAge);
-      submitData.append('listings', formData.listings);
-      submitData.append('sales', formData.sales);
-      submitData.append('problem', formData.problem);
-      submitData.append('preferredDate', formData.preferredDate);
-      submitData.append('timestamp', new Date().toISOString());
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-Qyi69VbiI5P7LyEpZltAOEaWMvqJ8xfsWXyfguEH7G7avqqQo-ap5l3StlzlPx3Z/exec';
 
       await fetch(SCRIPT_URL, {
         method: 'POST',
-        body: submitData,
-        mode: 'no-cors' // Crucial: allows cross-origin requests to Google Scripts without blocking
+        mode: 'no-cors',
+        body: new URLSearchParams({
+          fullName: formData.fullName,
+          shopName: formData.shopName,
+          shopLink: formData.shopLink,
+          email: formData.email,
+          whatsapp: formData.whatsapp,
+          shopAge: formData.shopAge,
+          listings: formData.listings,
+          sales: formData.sales,
+          problem: formData.problem,
+          preferredDate: formData.preferredDate,
+          timestamp: new Date().toISOString()
+        })
       });
 
       const subInfo = { date: formData.preferredDate, submittedAt: new Date().toISOString() };
@@ -226,7 +225,7 @@ export default function App() {
                   src="https://res.cloudinary.com/dap6inidx/image/upload/v1779992072/ChatGPT_Image_May_28_2026_11_13_51_PM_tmmfmd.png" 
                   alt="Etsy Expert" 
                   fetchPriority="high"
-                  className="w-auto h-full object-cover filter drop-shadow-2xl translate-y-[-20px] md:translate-y-[-40px] rounded-[3rem] shadow-[0_20px_50px_rgba(241,100,30,0.2)]"
+                  className="w-auto h-full object-cover filter drop-shadow-2xl translate-y-[-20px] md:translate-y-[-40px] rounded-2xl shadow-xl"
                 />
               </div>
             </motion.div>
