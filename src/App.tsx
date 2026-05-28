@@ -224,7 +224,6 @@ export default function App() {
                 <img 
                   src="https://res.cloudinary.com/dap6inidx/image/upload/v1779992072/ChatGPT_Image_May_28_2026_11_13_51_PM_tmmfmd.png" 
                   alt="Etsy Expert" 
-                  fetchPriority="high"
                   className="w-auto h-full object-cover filter drop-shadow-2xl translate-y-[-20px] md:translate-y-[-40px] rounded-2xl shadow-xl"
                 />
               </div>
@@ -278,7 +277,7 @@ export default function App() {
                       <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">Shop Age</label>
                       <div className="relative">
                         <select required name="shopAge" value={formData.shopAge} onChange={handleInputChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#F1641E] focus:ring-2 focus:ring-[#F1641E]/20 transition-all outline-none text-sm text-slate-800 appearance-none pr-10">
-                          <option value="" disabled selected>Select</option>
+                          <option value="" disabled>Select</option>
                           <option value="<1M">Less than 1 Month</option>
                           <option value="1-3M">1–3 Months</option>
                           <option value="3-6M">3–6 Months</option>
@@ -301,7 +300,7 @@ export default function App() {
                     <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">Preferred Audit Date</label>
                     <div className="relative">
                       <select required name="preferredDate" value={formData.preferredDate} onChange={handleInputChange} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#F1641E] focus:ring-2 focus:ring-[#F1641E]/20 transition-all outline-none text-sm text-slate-800 appearance-none pr-10">
-                        <option value="" disabled selected>Select Date</option>
+                        <option value="" disabled>Select Date</option>
                         {["June 1, 2026", "June 2, 2026", "June 3, 2026", "June 4, 2026", "June 5, 2026", "June 6, 2026", "June 7, 2026", "June 8, 2026"].map(date => (
                           <option key={date} value={date}>{date}</option>
                         ))}
