@@ -49,7 +49,7 @@ export default function App() {
     setIsSubmitting(true);
     
     try {
-      const SCRIPT_URL = 'PASTE_YOUR_NEW_SCRIPT_URL_HERE';
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxZS3k3oMwn-kOYh5TR59WrGMe8cuHqM3ci3rPWjXimfDSZINtL4HGvoHyKu3zqZFUq/exec';
 
       await fetch(SCRIPT_URL, {
         method: 'POST',
