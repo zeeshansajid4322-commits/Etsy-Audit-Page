@@ -51,22 +51,26 @@ export default function App() {
     try {
       const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxZS3k3oMwn-kOYh5TR59WrGMe8cuHqM3ci3rPWjXimfDSZINtL4HGvoHyKu3zqZFUq/exec';
 
+      const payload = new URLSearchParams();
+      payload.append('Full Name', formData.fullName);
+      payload.append('Shop Name', formData.shopName);
+      payload.append('Shop Link', formData.shopLink);
+      payload.append('Email', formData.email);
+      payload.append('WhatsApp', formData.whatsapp);
+      payload.append('Shop Age', formData.shopAge);
+      payload.append('Listings', formData.listings);
+      payload.append('Sales', formData.sales);
+      payload.append('Problem', formData.problem);
+      payload.append('Preferred Date', formData.preferredDate);
+      payload.append('Timestamp', new Date().toISOString());
+
       await fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
-        body: new URLSearchParams({
-          fullName: formData.fullName,
-          shopName: formData.shopName,
-          shopLink: formData.shopLink,
-          email: formData.email,
-          whatsapp: formData.whatsapp,
-          shopAge: formData.shopAge,
-          listings: formData.listings,
-          sales: formData.sales,
-          problem: formData.problem,
-          preferredDate: formData.preferredDate,
-          timestamp: new Date().toISOString()
-        })
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: payload.toString()
       });
 
       const subInfo = { date: formData.preferredDate, submittedAt: new Date().toISOString() };
