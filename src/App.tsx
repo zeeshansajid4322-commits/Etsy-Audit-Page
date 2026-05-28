@@ -54,6 +54,9 @@ export default function App() {
       await fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
         body: new URLSearchParams({
           fullName: formData.fullName,
           shopName: formData.shopName,
@@ -66,7 +69,7 @@ export default function App() {
           problem: formData.problem,
           preferredDate: formData.preferredDate,
           timestamp: new Date().toISOString()
-        })
+        }).toString()
       });
 
       const subInfo = { date: formData.preferredDate, submittedAt: new Date().toISOString() };
