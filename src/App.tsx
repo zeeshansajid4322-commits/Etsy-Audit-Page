@@ -49,14 +49,11 @@ export default function App() {
     setIsSubmitting(true);
     
     try {
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-Qyi69VbiI5P7LyEpZltAOEaWMvqJ8xfsWXyfguEH7G7avqqQo-ap5l3StlzlPx3Z/exec';
+      const SCRIPT_URL = 'PASTE_YOUR_NEW_SCRIPT_URL_HERE';
 
       await fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
         body: new URLSearchParams({
           fullName: formData.fullName,
           shopName: formData.shopName,
@@ -69,7 +66,7 @@ export default function App() {
           problem: formData.problem,
           preferredDate: formData.preferredDate,
           timestamp: new Date().toISOString()
-        }).toString()
+        })
       });
 
       const subInfo = { date: formData.preferredDate, submittedAt: new Date().toISOString() };
