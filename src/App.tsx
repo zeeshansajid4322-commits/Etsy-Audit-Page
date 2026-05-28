@@ -9,7 +9,6 @@ import {
   ChevronDown,
   Phone
 } from 'lucide-react';
-import { initAuth, googleSignIn, getAccessToken } from './auth';
 
 export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -36,8 +35,6 @@ export default function App() {
       setSubmittedData(JSON.parse(saved));
       setIsSubmitted(true);
     }
-    const unsubscribe = initAuth();
-    return () => unsubscribe();
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -52,48 +49,26 @@ export default function App() {
     setIsSubmitting(true);
     
     try {
-      let token = await getAccessToken();
-      if (!token) {
-        const result = await googleSignIn();
-        if (result) {
-          token = result.accessToken;
-        } else {
-          throw new Error('Authentication required to save entry');
-        }
-      }
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwQfzlUcfaE7Cy6bl-Tzvoge7gmZtFUUg0hFjEorQ95tFjjbbYnieN6uVUOBpbvL2mn/exec';
+      
+      const submitData = new FormData();
+      submitData.append('fullName', formData.fullName);
+      submitData.append('shopName', formData.shopName);
+      submitData.append('shopLink', formData.shopLink);
+      submitData.append('email', formData.email);
+      submitData.append('whatsapp', formData.whatsapp);
+      submitData.append('shopAge', formData.shopAge);
+      submitData.append('listings', formData.listings);
+      submitData.append('sales', formData.sales);
+      submitData.append('problem', formData.problem);
+      submitData.append('preferredDate', formData.preferredDate);
+      submitData.append('timestamp', new Date().toISOString());
 
-      const SPREADSHEET_ID = '1kCm2oqJ_dzeUkm06dTZrcf3hkBoa_GB7b3D2Jo41u8w';
-      const RANGE = 'Sheet1!A:K';
-
-      const rowData = [
-        formData.fullName,
-        formData.shopName,
-        formData.shopLink,
-        formData.email,
-        formData.whatsapp,
-        formData.shopAge,
-        formData.listings,
-        formData.sales,
-        formData.problem,
-        formData.preferredDate,
-        new Date().toISOString()
-      ];
-
-      const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}:append?valueInputOption=USER_ENTERED`, {
+      await fetch(SCRIPT_URL, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          values: [rowData],
-        }),
+        body: submitData,
+        mode: 'no-cors' // Crucial: allows cross-origin requests to Google Scripts without blocking
       });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.error?.message || 'Failed to save to Google Sheets');
-      }
 
       const subInfo = { date: formData.preferredDate, submittedAt: new Date().toISOString() };
       localStorage.setItem('auditSubmission', JSON.stringify(subInfo));
@@ -248,10 +223,10 @@ export default function App() {
               <div className="relative">
                 <div className="absolute inset-0 bg-orange-400 blur-[80px] opacity-20 rounded-full"></div>
                 <img 
-                  src="https://res.cloudinary.com/dap6inidx/image/upload/v1779987739/ChatGPT_Image_May_28_2026_09_56_47_PM_n22izg.png" 
+                  src="https://res.cloudinary.com/dap6inidx/image/upload/v1779992072/ChatGPT_Image_May_28_2026_11_13_51_PM_tmmfmd.png" 
                   alt="Etsy Expert" 
                   fetchPriority="high"
-                  className="w-auto h-full object-cover filter drop-shadow-2xl translate-y-[-20px] md:translate-y-[-40px] rounded-[3rem] border-[4px] border-white/60 shadow-[0_20px_50px_rgba(241,100,30,0.2)]"
+                  className="w-auto h-full object-cover filter drop-shadow-2xl translate-y-[-20px] md:translate-y-[-40px] rounded-[3rem] shadow-[0_20px_50px_rgba(241,100,30,0.2)]"
                 />
               </div>
             </motion.div>
